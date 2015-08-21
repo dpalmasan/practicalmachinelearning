@@ -1,0 +1,38 @@
+---
+title: "practical_ml_proyect"
+author: "dpalma"
+date: "21 de agosto de 2015"
+output: html_document
+---
+
+Steps Taken
+--------------------------------------------------------------------------------
+I took the following steps in doing this project:
+
+- Getting the data.
+- Preprocessing the data.
+- View the training samples to see which features were relevant and which not.
+- Applied CV, for estimating the out of sample error.
+- Predict using the testing data.
+
+Steps' Description
+--------------------------------------------------------------------------------
+The first step was already done, the data was given to us, so there was no 
+difficulties in doing this step (however, I know that usually this is a hard
+task, getting data is not trivial at all!)
+
+For preprocessing the data, I removed all non numeric data (except the classe attribute, since it is what we are going to predict!). Then I removed non relevant
+data (like date, and other data that did not have great variability, so it was not relevant, or that is what I thought).
+
+After doing that, selecting the features was not a difficult task. At first, I tried with all the features that I got after the preprocessing.
+
+For applying CV, my criteria was the following: Since there is a great amount of data (this is a large dataset), using 10-fold cv won't be scalable at all! So I played with different k-fold cv, from 2 - 5. Finally, I tested models that can do multi-class classification without being "adapted" to that. I chose 3 different models from caret: rf, rpart, gbm. The accuracies I obtained were the following:
+
+- rf: 0.99 (predictions on test set: B A B A A E D B A A B C B A E E A B B B)
+- rpart: 0.55 (predictions on test set:  A B A A E D B A A B C B A E E A B B B)
+- gbm: 0.98 (predictions on test set: B A B A A E D B A A B C B A E E A B B B)
+
+A visualization of the Rpart is here:
+![title](C:\Users\chicho\Desktop\PracticalMachineLearning\project\Rplot.png)
+
+Some drawbacks: rf and gbm are difficult to interpret, and from figure in rpart we can easily interpret the data and the prediction, however the accuracy obtained using CV is pretty low compared to the other two, so I expect that the out of sample error will be bigger on this model. Finally I picked random forests (rf).
